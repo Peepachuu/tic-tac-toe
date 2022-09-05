@@ -13,8 +13,26 @@ const gameBoard = (function() {
         return board;
     }
 
-    function decideVerdict() {
+    function boardIsFull() {
+        for (let x = 0; x < 3; ++x) {
+            for (let y = 0; y < 3; ++y) {
+                if (board[x][y] == '')
+                    return false;
+            }
+        }
+        return true;
+    }
 
+    function decideVerdict() {
+        const winner = checkForWinner();
+        if (winner == -1 && boardIsFull())
+            return "Draw";
+        else if (winner == 'X')
+            return 'X is the winner!';
+        else if (winner == 'O')
+            return 'O is the winner!';
+        else
+            return -1;
     }
 
     function checkForWinner() {
@@ -39,7 +57,7 @@ const gameBoard = (function() {
     return {
         insertMarker,
         displayBoard,
-        checkForWinner
+        decideVerdict
     }
 })();
 
@@ -47,5 +65,5 @@ console.log(gameBoard.displayBoard());
 gameBoard.insertMarker('X', 1, 1);
 gameBoard.insertMarker('X', 0, 2);
 gameBoard.insertMarker('X', 2, 1);
-console.log(gameBoard.checkForWinner());
+console.log(gameBoard.decideVerdict());
 console.log(gameBoard.displayBoard());
