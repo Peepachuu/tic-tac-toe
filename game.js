@@ -6,10 +6,12 @@ const gameBoard = (function() {
         ];
 
     function insertMarker(marker, posX, posY) {
+        if (board[posX][posY] != "")
+            return;
         board[posX][posY] = marker;
     }
 
-    function displayBoard() {
+    function retrieveBoard() {
         return board;
     }
 
@@ -56,17 +58,58 @@ const gameBoard = (function() {
     }
     return {
         insertMarker,
-        displayBoard,
+        retrieveBoard,
         decideVerdict
     }
 })();
 
+const displayController = (function() {
+    const boxes = document.querySelectorAll(".box");
+    function activateBoxes() {
+        boxes.forEach(box => {
+            box.addEventListener('click', (e) => {
+                placeMarker(e);
+                displayBoard();
+            });
+        });
+    }
+
+    function placeMarker(e) {
+        let posX = e.target.dataset.pos[0];
+        let posY = e.target.dataset.pos[2];
+        gameBoard.insertMarker(gameFlow.currentMarker, posX, posY);
+    }
+
+    function displayBoard() {
+        const board = gameBoard.retrieveBoard();
+        boxes.forEach((box) => {
+            let posX = box.dataset.pos[0];
+            let posY = box.dataset.pos[2];
+            box.textContent = board[posX][posY];
+        });
+    }
+    return {
+        activateBoxes,
+        placeMarker
+    }
+})();
+
 const playerFactory = function(marker) {
+    let score = 0;
+    function retrieveScore() {
+        return score;
+    }
     
 };
-console.log(gameBoard.displayBoard());
-gameBoard.insertMarker('X', 1, 1);
-gameBoard.insertMarker('X', 0, 2);
-gameBoard.insertMarker('X', 2, 1);
-console.log(gameBoard.decideVerdict());
-console.log(gameBoard.displayBoard());
+
+const gameFlow = (function() {
+    let currentMarker = "X";
+    // What the current turn is
+    // Clicking on one of the boxes places the marker
+    // 
+    return {
+        currentMarker
+    }
+})();
+
+displayController.activateBoxes();
