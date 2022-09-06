@@ -1,0 +1,32 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    justify-content: center;
+}
+
+.names {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 320px;
+    height: 320px;
+    gap: 8px;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+    border: 1px solid black;
+}

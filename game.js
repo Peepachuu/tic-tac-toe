@@ -61,6 +61,9 @@ const gameBoard = (function() {
     }
 })();
 
+const playerFactory = function(marker) {
+    
+};
 console.log(gameBoard.displayBoard());
 gameBoard.insertMarker('X', 1, 1);
 gameBoard.insertMarker('X', 0, 2);
