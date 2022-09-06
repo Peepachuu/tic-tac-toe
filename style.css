@@ -3,16 +3,24 @@
     margin: 0px;
 }
 
+@font-face {
+    font-family: "beyond";
+    src: url("beyond_the_mountains.otf");
+}
 body {
     display: grid;
     grid-template-rows: auto 1fr;
     justify-content: center;
+    font-family: 'beyond';
+    
 }
 
 .names {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 24px;
+    font-size: 2rem;
+    padding: 16px;
 }
 .board {
     display: grid;
@@ -29,4 +37,5 @@ body {
     align-items: center;
     border-radius: 16px;
     border: 1px solid black;
+    font-size: 2rem;
 }
