@@ -5,12 +5,6 @@ const gameBoard = (function() {
             ['', '', '']
         ];
 
-    function insertMarker(marker, posX, posY) {
-        if (board[posX][posY] != "")
-            return;
-        board[posX][posY] = marker;
-    }
-
     function retrieveBoard() {
         return board;
     }
@@ -61,7 +55,6 @@ const gameBoard = (function() {
         return -1;
     }
     return {
-        insertMarker,
         retrieveBoard,
         decideVerdict,
         updateBoard
@@ -79,12 +72,6 @@ const displayController = (function() {
         });
     }
 
-    function placeMarker(e) {
-        let posX = e.target.dataset.pos[0];
-        let posY = e.target.dataset.pos[2];
-        gameBoard.insertMarker(gameFlow.currentMarker, posX, posY);
-    }
-
     function displayBoard() {
         const board = gameBoard.retrieveBoard();
         boxes.forEach((box) => {
@@ -94,8 +81,7 @@ const displayController = (function() {
         });
     }
     return {
-        activateBoxes,
-        placeMarker
+        activateBoxes
     }
 })();
 
@@ -132,15 +118,22 @@ const player2 = playerFactory("O", "Rando");
 
 const gameFlow = (function() {
     let currentPlayer = player1;
-    // Keeps track of the current player
-    // Clicking on one of the boxes places the marker
-    // Then the current player switches
+    let gameRunning = true;
+
     function executeTurn(posX, posY) {
+        if (!gameRunning)
+            return;
+
         let canBePlaced = currentPlayer.insertMarker(posX, posY);
-        console.log(currentPlayer.retrieveName());
         if (!canBePlaced)
             return;
         switchTurn();
+
+        let verdict = gameBoard.decideVerdict();
+        if (verdict == -1)
+            return;
+        gameRunning = false;
+        console.log(verdict);
     }
 
     function switchTurn() {
