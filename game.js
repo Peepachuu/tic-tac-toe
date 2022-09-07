@@ -15,6 +15,10 @@ const gameBoard = (function() {
         return board;
     }
 
+    function updateBoard(boardToUpdateTo) {
+        board = boardToUpdateTo;
+    }
+
     function boardIsFull() {
         for (let x = 0; x < 3; ++x) {
             for (let y = 0; y < 3; ++y) {
@@ -59,7 +63,8 @@ const gameBoard = (function() {
     return {
         insertMarker,
         retrieveBoard,
-        decideVerdict
+        decideVerdict,
+        updateBoard
     }
 })();
 
@@ -68,7 +73,7 @@ const displayController = (function() {
     function activateBoxes() {
         boxes.forEach(box => {
             box.addEventListener('click', (e) => {
-                placeMarker(e);
+                gameFlow.executeTurn(e.target.dataset.pos[0], e.target.dataset.pos[2]);
                 displayBoard();
             });
         });
@@ -94,21 +99,56 @@ const displayController = (function() {
     }
 })();
 
-const playerFactory = function(marker) {
+const playerFactory = function(marker, name) {
     let score = 0;
+
     function retrieveScore() {
         return score;
     }
     
+    function retrieveName() {
+        return name;
+    }
+
+    function insertMarker(posX, posY) {
+        const board = gameBoard.retrieveBoard();
+        console.log(board);
+        if (board[posX][posY] != "")
+            return false;
+        board[posX][posY] = marker;
+        gameBoard.updateBoard(board);
+        return true;
+    }
+
+    return {
+        insertMarker,
+        retrieveScore,
+        retrieveName
+    }
 };
 
+const player1 = playerFactory("X", "Zafir");
+const player2 = playerFactory("O", "Rando");
+
 const gameFlow = (function() {
-    let currentMarker = "X";
-    // What the current turn is
+    let currentPlayer = player1;
+    // Keeps track of the current player
     // Clicking on one of the boxes places the marker
-    // 
+    // Then the current player switches
+    function executeTurn(posX, posY) {
+        let canBePlaced = currentPlayer.insertMarker(posX, posY);
+        console.log(currentPlayer.retrieveName());
+        if (!canBePlaced)
+            return;
+        switchTurn();
+    }
+
+    function switchTurn() {
+        currentPlayer = (currentPlayer == player1 ? player2 : player1);
+    }
+
     return {
-        currentMarker
+        executeTurn
     }
 })();
 
