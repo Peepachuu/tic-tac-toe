@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
     <script src="game.js" defer></script>
 </head>
 <body>
     <section class="names" aria-label="player names">
-        <div>Player One</div>
-        <div>Player Two</div>
+        <div class="player_one">Player One</div>
+        <div class="player_two">Player Two</div>
     </section>
     <section class="board">
         <div class="box" data-pos="0 0"></div>
@@ -24,5 +24,18 @@
         <div class="box" data-pos="2 1"></div>
         <div class="box" data-pos="2 2"></div>
     </section>
+    <form>
+        <ul>
+            <li>
+                <label for="player_one">Player 1:</label>
+                <input type="text" name="player_one" id="player_one">
+            </li>
+            <li>
+                <label for="player_two">Player 2:</label>
+                <input type="text" name="player_twp" id="player_two">
+            </li>
+        </ul>
+        <button>Submit</button>
+    </form>
 </body>
 </html>

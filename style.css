@@ -7,12 +7,16 @@
     font-family: "beyond";
     src: url("beyond_the_mountains.otf");
 }
+
+html, body {
+    height: 100%;
+}
+
 body {
     display: grid;
     grid-template-rows: auto 1fr;
-    justify-content: center;
     font-family: 'beyond';
-    
+    justify-items: center;
 }
 
 .names {
@@ -22,6 +26,7 @@ body {
     font-size: 2rem;
     padding: 16px;
 }
+
 .board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -45,4 +50,35 @@ body {
 .box:hover {
     transform: scale(1.05);
     transition: transform 0.2s;
+}
+
+form {
+    position: absolute;
+    align-self: center;
+    font-size: 1.5rem;
+}
+
+form ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+form ul {
+    list-style-type: none;
+}
+
+form li {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+form input {
+    font-size: 1.5rem;
+}
+
+form button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
 }
