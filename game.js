@@ -13,6 +13,14 @@ const gameBoard = (function() {
         board = boardToUpdateTo;
     }
 
+    function resetBoard() {
+        board = [
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', '']
+        ]
+    }
+
     function boardIsFull() {
         for (let x = 0; x < 3; ++x) {
             for (let y = 0; y < 3; ++y) {
@@ -57,7 +65,8 @@ const gameBoard = (function() {
     return {
         retrieveBoard,
         decideVerdict,
-        updateBoard
+        updateBoard,
+        resetBoard
     }
 })();
 
@@ -80,8 +89,25 @@ const displayController = (function() {
             box.textContent = board[posX][posY];
         });
     }
+
+    function setUpVerdictContainer() {
+        const verdictContainer = document.querySelector(".verdict");
+        verdictContainer.addEventListener('click', () => {
+            verdictContainer.style.visibility = "hidden";
+        });
+    }
+
+    function setUpRestartButton() {
+        const restartButton = document.querySelector(".restart");
+        restartButton.addEventListener('click', () => {
+            gameFlow.restartGame();
+            displayBoard();
+        });
+    }
     return {
-        activateBoxes
+        activateBoxes,
+        setUpVerdictContainer,
+        setUpRestartButton
     }
 })();
 
@@ -118,12 +144,8 @@ const player2 = playerFactory("O", "Rando");
 
 const gameFlow = (function() {
     let currentPlayer = player1;
-    let gameRunning = true;
 
     function executeTurn(posX, posY) {
-        if (!gameRunning)
-            return;
-
         let canBePlaced = currentPlayer.insertMarker(posX, posY);
         if (!canBePlaced)
             return;
@@ -132,17 +154,30 @@ const gameFlow = (function() {
         let verdict = gameBoard.decideVerdict();
         if (verdict == -1)
             return;
-        gameRunning = false;
-        console.log(verdict);
+        displayVerdict(verdict);
+        restartGame();
     }
 
     function switchTurn() {
         currentPlayer = (currentPlayer == player1 ? player2 : player1);
     }
 
+    function restartGame() {
+        gameBoard.resetBoard();
+        currentPlayer = player1;
+    }
+
+    function displayVerdict(verdict) {
+        const verdictContainer = document.querySelector(".verdict");
+        verdictContainer.textContent = verdict;
+        verdictContainer.style.visibility = "visible";
+    }
     return {
-        executeTurn
+        executeTurn,
+        restartGame
     }
 })();
 
 displayController.activateBoxes();
+displayController.setUpVerdictContainer();
+displayController.setUpRestartButton();

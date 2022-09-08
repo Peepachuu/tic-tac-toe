@@ -9,33 +9,25 @@
     <script src="game.js" defer></script>
 </head>
 <body>
-    <section class="names" aria-label="player names">
-        <div class="player_one">Player One</div>
-        <div class="player_two">Player Two</div>
+    <section class="main-content">
+        <header>
+            <h1>Tic Tac Toe</h1>
+        </header>
+        <section class="board">
+            <div class="box" data-pos="0 0"></div>
+            <div class="box" data-pos="0 1"></div>
+            <div class="box" data-pos="0 2"></div>
+            <div class="box" data-pos="1 0"></div>
+            <div class="box" data-pos="1 1"></div>
+            <div class="box" data-pos="1 2"></div>
+            <div class="box" data-pos="2 0"></div>
+            <div class="box" data-pos="2 1"></div>
+            <div class="box" data-pos="2 2"></div>
+        </section>
+        <button class="restart">Restart</button>
     </section>
-    <section class="board">
-        <div class="box" data-pos="0 0"></div>
-        <div class="box" data-pos="0 1"></div>
-        <div class="box" data-pos="0 2"></div>
-        <div class="box" data-pos="1 0"></div>
-        <div class="box" data-pos="1 1"></div>
-        <div class="box" data-pos="1 2"></div>
-        <div class="box" data-pos="2 0"></div>
-        <div class="box" data-pos="2 1"></div>
-        <div class="box" data-pos="2 2"></div>
-    </section>
-    <form>
-        <ul>
-            <li>
-                <label for="player_one">Player 1:</label>
-                <input type="text" name="player_one" id="player_one">
-            </li>
-            <li>
-                <label for="player_two">Player 2:</label>
-                <input type="text" name="player_twp" id="player_two">
-            </li>
-        </ul>
-        <button>Submit</button>
-    </form>
+    <div class="verdict">
+
+    </div>
 </body>
 </html>

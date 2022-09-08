@@ -13,20 +13,27 @@ html, body {
 }
 
 body {
-    display: grid;
-    grid-template-rows: auto 1fr;
     font-family: 'beyond';
+}
+
+.main-content {
+    display: grid;
     justify-items: center;
+    gap: 8px;
 }
 
-.names {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    font-size: 2rem;
-    padding: 16px;
+.restart {
+    padding: 8px 16px;
+    font-size: 1.2rem;
+    font-family: 'beyond';
+    border-radius: 8px;
+    background-color: lightsalmon;
 }
 
+.main-content h1 {
+    font-size: 4rem;
+    padding: 32px 16px;
+}
 .board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -52,33 +59,15 @@ body {
     transition: transform 0.2s;
 }
 
-form {
+.verdict {
     position: absolute;
-    align-self: center;
-    font-size: 1.5rem;
-}
-
-form ul {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-form ul {
-    list-style-type: none;
-}
-
-form li {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-form input {
-    font-size: 1.5rem;
-}
-
-form button {
+    height: 100%;
     width: 100%;
-    margin-top: 8px;
-    padding: 8px;
+    top: 0%;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: 4rem;
 }
